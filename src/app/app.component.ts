@@ -19,11 +19,11 @@ export class AppComponent implements OnInit {
     })
   }
 
-  updateValue(value: string, field: string): void {
-    const newState: mainState = {
-      ...this.state,
-      [field]: field === 'age' ? +value : value
-    };
-    this.stateService.updateData(newState);
-  }
+  // updateValue(value: string, field: string): void {
+  //   const newState: mainState = {
+  //     ...this.state,
+  //     [field]: field === 'age' ? +value : value
+  //   };
+  //   this.stateService.updateData(newState);
+  // }
 }

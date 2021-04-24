@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { mainState } from 'src/app/entities/main-state';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-input',
@@ -7,11 +9,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class InputComponent {
   @Input() buttonName: string;
-  @Output() eventEmitter = new EventEmitter<string>();
 
-  constructor() {}
+  state: mainState;
+
+  constructor(private readonly stateService: StateService) {
+    this.stateService.readData().subscribe(data => this.state = data);
+  }
 
   updateValue(value: string): void {
-    this.eventEmitter.emit(value);
+    const newState: mainState = {
+      ...this.state,
+      [this.buttonName]: value === 'age' ? +value : value
+    };
+    this.stateService.updateData(newState);
   }
 }
